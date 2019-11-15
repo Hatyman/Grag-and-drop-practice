@@ -1,26 +1,9 @@
-document
-    .querySelectorAll('.column')
-    .forEach(Column.process);
+Application.load();
 
 document
     .querySelector('[data-action-addColumn]')
     .addEventListener('click', event => {
-        const columnElement = document.createElement('div');
-        columnElement.className += 'column';
-        columnElement.setAttribute('draggable', 'true');
-        columnElement.setAttribute('data-column-id', '' + Column.idCounter++);
-        columnElement.innerHTML = `
-        <p class="column-header">В плане</p>
-        <div data-notes></div>
-        <p class="column-footer">
-            <span data-action-addNote class="action">+ Добавить карточку</span>
-        </p>
-        `;
-
-        Column.process(columnElement);
-        document.querySelector('.columns').appendChild(columnElement);
+        const column = new Column();
+        document.querySelector('.columns').appendChild(column.element);
+        Application.save();
     });
-
-document
-    .querySelectorAll('.note')
-    .forEach(Note.process);
